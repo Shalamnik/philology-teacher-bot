@@ -5,13 +5,14 @@ from config import Config
 
 
 config = Config()
-
 TOKEN = config['TELEGRAM']['TOKEN']
+URL = config['HEROKU']['URL']
+
 bot = telegram.Bot(token=TOKEN)
 app = FastAPI()
 
 
-@app.post(f"/{TOKEN}")
+@app.get("/")
 async def root():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
@@ -34,6 +35,18 @@ async def root():
         # send the welcoming message
         bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
     else:
-        bot.sendPhoto(chat_id=chat_id, photo=url, reply_to_message_id='Have a good day!')
+        bot.sendMessage(chat_id=chat_id, photo=url, reply_to_message_id='Have a good day!')
 
     return 'ok'
+
+
+@app.get('/setwebhook')
+def set_webhook():
+    # we use the bot object to link the bot to our app which live
+    # in the link provided by URL
+    s = bot.setWebhook(f'{URL}{TOKEN}')
+    # something to let us know things work
+    if s:
+        return "webhook setup ok"
+    else:
+        return "webhook setup failed"
