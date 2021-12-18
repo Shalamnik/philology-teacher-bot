@@ -1,1 +1,1 @@
-web: flask run
+web: uvicorn main:app
