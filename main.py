@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 import telegram
+import os
 
-from config import Config
 
-
-config = Config()
-TOKEN = config['TELEGRAM']['TOKEN']
-URL = config['HEROKU']['URL']
+TOKEN = os.environ['TOKEN']
+URL = os.environ['URL']
 
 bot = telegram.Bot(token=TOKEN)
 app = FastAPI()
