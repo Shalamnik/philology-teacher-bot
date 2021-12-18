@@ -34,8 +34,9 @@ def receive_update():
             bot.sendMessage(chat_id=chat_id, text=reply_message)
         elif text == "помощь":
             reply_message = "Для получения ДЗ введите свой класс, точку и слово 'дз'. Например, '5а.дз'.\n" \
-                            "Для получения подсказки по ДЗ введите свой класс, точку и слово 'помощь'. " \
-                            "Например, '5а.помощь'."
+                            "Для получения подсказки по ДЗ введите свой класс, точку и слово 'помощь'." \
+                            "Например, '5а.помощь'.\n" \
+                            "Для просмотра интересного факта о Русском языке введите 'интересное'."
             bot.sendMessage(chat_id=chat_id, text=reply_message)
         elif "5" in text and "дз" in text:
             reply_message = "Параграф 7, задание №3."
@@ -44,6 +45,9 @@ def receive_update():
             reply_message = "Ещё раз внимательно прочитайте правило в параграфе и посмотрите контрольные примеры."
             bot.sendMessage(chat_id=chat_id, text=reply_message)
             photo_url = "https://www.google.com/imgres?imgurl=https%3A%2F%2Ffb.ru%2Fmisc%2Fi%2Fthumb%2Fa%2F4%2F6%2F1%2F2%2F7%2F2%2F461272.jpg&imgrefurl=https%3A%2F%2Ffb.ru%2Farticle%2F148730%2Fbezudarnaya-glasnaya-v-korne-proveryaemaya-udareniem-slova-bezudarnyie-glasnyie&tbnid=KoIQ_KYEZMr5sM&vet=12ahUKEwi4tZupl-70AhWPtIsKHbYLDwAQMygLegUIARDAAQ..i&docid=7C_dMZ0F4DdNLM&w=400&h=236&itg=1&q=%D0%B1%D0%B5%D0%B7%D1%83%D0%B4%D0%B0%D1%80%D0%BD%D0%B0%D1%8F%20%D0%B3%D0%BB%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B2%20%D0%BA%D0%BE%D1%80%D0%BD%D0%B5&safe=active&ved=2ahUKEwi4tZupl-70AhWPtIsKHbYLDwAQMygLegUIARDAAQ"
+            bot.sendPhoto(chat_id=chat_id, photo=photo_url)
+        elif 'интерес' in text:
+            photo_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDQCgyEPApE2KW-GpKjN5d1Ansehdxl5USvg&usqp=CAU'
             bot.sendPhoto(chat_id=chat_id, photo=photo_url)
         else:
             reply_message = "Команда не распознана. Попробуйте ввести ещё раз."
