@@ -22,7 +22,23 @@ def send_message(chat_id, text):
 @app.route("/", methods=["GET", "POST"])
 def receive_update():
     if request.method == "POST":
-        print(request.json)
-        chat_id = request.json["message"]["chat"]["id"]
-        send_message(chat_id, "pong")
-    return request.json
+        update = telegram.Update.de_json(request.get_json(force=True), bot)
+
+        chat_id = update.message.chat.id
+        msg_id = update.message.message_id
+
+        # Telegram understands UTF-8, so encode text for unicode compatibility
+        text = update.message.text.encode('utf-8').decode()
+        # for debugging purposes only
+        print("got text message :", text)
+        # the first time you chat with the bot AKA the welcoming message
+        if text == "/start":
+            # print the welcoming message
+            bot_welcome = """
+               Welcome to coolAvatar bot, the bot is using the service from http://avatars.adorable.io/ to generate cool looking avatars based on the name you enter so please enter a name and the bot will reply with an avatar for your name.
+               """
+            # send the welcoming message
+            bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
+    # return request.json
+    return {"ok": True}
+
