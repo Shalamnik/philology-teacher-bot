@@ -26,7 +26,7 @@ def receive_update():
 
         chat_id = update.message.chat.id
         msg_id = update.message.message_id
-        text = update.message.text.encode('utf-8').decode()
+        text = update.message.text.encode('utf-8').decode().lower()
 
         if text == "/start":
             reply_message = "Здравствуйте, я Ваш помощник по филологии: Русскому языку и литературе.\n" \
